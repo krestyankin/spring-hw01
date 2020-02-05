@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="quizService" class="ru.krestyankin.quiz.service.QuizServiceImpl">
+        <constructor-arg name="studentService" ref="studentService"/>
+        <constructor-arg name="questions" ref="questionDao"/>
+        <constructor-arg name="questionService" ref="questionService"/>
+        <constructor-arg name="testResultService" ref="testResultService"/>
+    </bean>
+
+    <bean id="userInterface" class="ru.krestyankin.quiz.service.userInterfaceImpl"></bean>
+    <bean id="questionDao" class="ru.krestyankin.quiz.dao.QuestionDaoCsv">
+        <constructor-arg value="questions.csv"/>
+    </bean>
+    <bean id="studentService" class="ru.krestyankin.quiz.service.StudentServiceImpl">
+        <constructor-arg ref="userInterface"/>
+    </bean>
+    <bean id="questionService" class="ru.krestyankin.quiz.service.QuestionServiceImpl">
+        <constructor-arg ref="userInterface"/>
+    </bean>
+    <bean id="testResultService" class="ru.krestyankin.quiz.service.TestResultServiceImpl">
+        <constructor-arg ref="userInterface"/>
+    </bean>
+</beans>
